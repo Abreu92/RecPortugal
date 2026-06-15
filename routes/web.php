@@ -1,25 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Volt\Volt;
 
 // Página Inicial
 Route::view('/', 'welcome');
 
-// Rotas de Administração de Produtos
-// Nota: Adicionei o middleware 'auth' para garantir que só tu (logado) possas criar produtos.
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/produto/novo', [ProductController::class, 'create']);
-    Route::post('/admin/produto/guardar', [ProductController::class, 'store'])->name('product.store');
+// Rotas de Autenticação (Uso correto de Volt::route)
+// O segundo argumento é o caminho da view dentro de resources/views/livewire/
+Volt::route('login', 'pages.auth.login')->name('login');
+Volt::route('register', 'pages.auth.register')->name('register');
+
+// Logout (Definimos o nome 'logout' explicitamente)
+Route::post('logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
+
+// Dashboard (Protegido)
+Route::middleware('auth')->group(function () {
+    Route::view('dashboard', 'dashboard')->name('dashboard');
 });
-
-// Rotas de Autenticação/Dashboard do Breeze
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
-
-require __DIR__.'/auth.php';

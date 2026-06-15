@@ -17,24 +17,27 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <div class="p-6 md:p-8 border border-slate-200 bg-white shadow-sm" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjY1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI24pIiBvcGFjaXR5PSIuMDQiLz48L3N2Zz4=');">
-                <div class="text-rec-gold-600 mb-2 md:mb-4 text-2xl font-bold font-serif">01</div>
-                <h3 class="text-lg md:text-xl font-bold uppercase mb-2 text-slate-900">Rigor Absoluto</h3>
-                <p class="text-slate-500 text-sm">Qualidade inegociável, testada no terreno com a exigência que nos caracteriza.</p>
+            <div class="relative p-8 border border-slate-200 border-t-4 border-t-rec-gold-600 bg-white shadow-sm overflow-hidden"
+                 style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMDMiPjxwYXRoIGQ9Ik0zMCAwTDAgMzBsMzAgMzBsMzAtMzBMMzAgMHpNMzAgMmwyOCAyOEwyOCA1OEwyIDMwbDI4LTI4eiIvPjwvZz48L3N2Zz4=');">
+                <div class="text-rec-gold-600 mb-4 text-2xl font-bold font-serif opacity-90">01</div>
+                <h3 class="text-xl font-bold uppercase mb-2 text-slate-900 tracking-wide">Rigor Absoluto</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">Qualidade inegociável, testada no terreno com a exigência que nos caracteriza.</p>
             </div>
 
-            <div class="p-6 md:p-8 border border-slate-200 bg-white shadow-sm" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjY1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI24pIiBvcGFjaXR5PSIuMDQiLz48L3N2Zz4=');">
-                <div class="text-rec-gold-600 mb-2 md:mb-4 text-2xl font-bold font-serif">02</div>
-                <h3 class="text-lg md:text-xl font-bold uppercase mb-2 text-slate-900">Design Nacional</h3>
-                <p class="text-slate-500 text-sm">Minimalismo intemporal, inspirado na funcionalidade das nossas raízes.</p>
+            <div class="relative p-8 border border-slate-200 border-t-4 border-t-rec-gold-600 bg-white shadow-sm overflow-hidden"
+                 style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMDMiPjxwYXRoIGQ9Ik0zMCAwTDAgMzBsMzAgMzBsMzAtMzBMMzAgMHpNMzAgMmwyOCAyOEwyOCA1OEwyIDMwbDI4LTI4eiIvPjwvZz48L3N2Zz4=');">
+                <div class="text-rec-gold-600 mb-4 text-2xl font-bold font-serif opacity-90">02</div>
+                <h3 class="text-xl font-bold uppercase mb-2 text-slate-900 tracking-wide">Design Nacional</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">Minimalismo intemporal, inspirado na funcionalidade das nossas raízes.</p>
             </div>
 
-            <div class="p-6 md:p-8 border border-slate-200 bg-white shadow-sm" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjY1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI24pIiBvcGFjaXR5PSIuMDQiLz48L3N2Zz4=');">
-                <div class="text-rec-gold-600 mb-2 md:mb-4 text-2xl font-bold font-serif">03</div>
-                <h3 class="text-lg md:text-xl font-bold uppercase mb-2 text-slate-900">Prontidão</h3>
-                <p class="text-slate-500 text-sm">Operamos com a agilidade necessária, sem nunca comprometer a nossa identidade.</p>
+            <div class="relative p-8 border border-slate-200 border-t-4 border-t-rec-gold-600 bg-white shadow-sm overflow-hidden"
+                 style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMDMiPjxwYXRoIGQ9Ik0zMCAwTDAgMzBsMzAgMzBsMzAtMzBMMzAgMHpNMzAgMmwyOCAyOEwyOCA1OEwyIDMwbDI4LTI4eiIvPjwvZz48L3N2Zz4=');">
+                <div class="text-rec-gold-600 mb-4 text-2xl font-bold font-serif opacity-90">03</div>
+                <h3 class="text-xl font-bold uppercase mb-2 text-slate-900 tracking-wide">Prontidão</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">Operamos com a agilidade necessária, sem nunca comprometer a nossa identidade.</p>
             </div>
         </div>
     </div>

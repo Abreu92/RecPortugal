@@ -16,6 +16,8 @@ export default {
                 'tactical-dark': '#09090b',
                 // Background de componentes (cards, painéis)
                 'tactical-surface': '#18181b',
+                // Cor "Verde Tropa" para fundos específicos
+                'tactical-green': '#1b261b',
                 // O "Dourado" para CTAs e estados ativos
                 'rec-gold': {
                     400: '#d4b069',
@@ -26,7 +28,7 @@ export default {
                 'tactical-muted': '#a1a1aa',
             },
             fontFamily: {
-                // Sans para textos longos, Mono para dados e IDs (essencial para o look "militar/técnico")
+                // Sans para textos longos, Mono para dados e IDs
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
                 mono: ['JetBrains Mono', 'monospace'],
             },
