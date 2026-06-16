@@ -48,8 +48,18 @@ new #[Layout('layouts.app')] class extends Component
 
             <div>
                 <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Password</label>
-                <input type="password" wire:model="form.password" required
-                       class="w-full bg-tactical-dark border border-slate-700 text-white p-3 focus:border-rec-gold-600 focus:ring-1 focus:ring-rec-gold-600 transition-all">
+                <div class="relative">
+                    <input type="password" id="passwordInput" wire:model="form.password" required
+                           class="w-full bg-tactical-dark border border-slate-700 text-white p-3 pr-12 focus:border-rec-gold-600 focus:ring-1 focus:ring-rec-gold-600 transition-all">
+
+                    {{-- Botão Olho --}}
+                    <button type="button" onclick="togglePassword()"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition">
+                        <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </button>
+                </div>
                 @error('form.password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
 
@@ -64,3 +74,18 @@ new #[Layout('layouts.app')] class extends Component
         </p>
     </div>
 </div>
+
+<script>
+    function togglePassword() {
+        const input = document.getElementById('passwordInput');
+        const icon = document.getElementById('eyeIcon');
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.add('text-rec-gold-600'); // Fica dourado quando visível
+        } else {
+            input.type = 'password';
+            icon.classList.remove('text-rec-gold-600'); // Volta à cor original
+        }
+    }
+</script>

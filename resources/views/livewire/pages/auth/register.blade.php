@@ -75,7 +75,7 @@ new #[Layout('layouts.app')] class extends Component
             </div>
 
             <div>
-                <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Email Operacional</label>
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Email</label>
                 <input type="email" wire:model="email" required class="w-full bg-tactical-dark border border-slate-700 text-white p-3 focus:border-rec-gold-600 focus:ring-1 focus:ring-rec-gold-600 transition-all">
             </div>
 

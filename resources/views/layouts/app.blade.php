@@ -12,7 +12,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    {{-- O Livewire e Alpine são injetados automaticamente pelo @vite no app.js --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
@@ -21,9 +20,35 @@
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
 <body class="h-full bg-tactical-dark text-tactical-text font-sans antialiased selection:bg-rec-gold-600 selection:text-black">
+
+    {{-- Modal de Logout (Vanilla JS - À prova de falhas) --}}
+    <div id="logoutModal" class="hidden fixed inset-0 z-[9999] items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div class="bg-tactical-dark border border-tactical-surface p-8 rounded-lg shadow-2xl max-w-sm w-full space-y-6">
+            <h2 class="text-xl font-bold text-white uppercase tracking-widest">Terminar Sessão</h2>
+            <p class="text-tactical-text">Tem a certeza que pretende terminar a sessão atual?</p>
+
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <div class="flex gap-4">
+                    {{-- Botão Cancelar --}}
+                    <button type="button"
+                            onclick="document.getElementById('logoutModal').classList.add('hidden')"
+                            class="flex-1 py-2 px-4 border border-tactical-surface text-white hover:bg-tactical-surface transition">
+                        Cancelar
+                    </button>
+                    {{-- Botão Sair --}}
+                    <button type="submit"
+                            class="flex-1 py-2 px-4 bg-red-600 hover:bg-red-700 text-white font-bold transition">
+                        Sim, Sair
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     {{-- Mensagem de Sucesso (Toast Automático) --}}
     @if (session()->has('success'))
