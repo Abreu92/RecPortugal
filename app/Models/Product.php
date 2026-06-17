@@ -3,18 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory;
-
-    // Adiciona isto:
     protected $fillable = [
-        'name',
-        'slug',
-        'description',
-        'price',
-        'stock',
+        'name', 'slug', 'description', 'price', 'stock', 'image_path', 'is_active'
     ];
+
+    /**
+     * Define a relação: Um produto pode ter várias imagens associadas.
+     */
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
 }
