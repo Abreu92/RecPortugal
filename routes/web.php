@@ -5,10 +5,10 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Volt\Volt;
 
 // Importação dos teus componentes Livewire
-use App\Livewire\Admin\Dashboard;      // Importação do Dashboard Admin
-use App\Livewire\Admin\CreateProduct;  // Importação do componente de criar produto
-use App\Livewire\Admin\ListProducts;   // Importação do componente de listar produtos
-use App\Livewire\Admin\EditProduct;    // Importação do novo componente de editar produtos
+use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\CreateProduct;
+use App\Livewire\Admin\ListProducts;
+use App\Livewire\Admin\EditProduct;
 
 // Página Inicial
 Route::view('/', 'welcome');
@@ -38,7 +38,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Rotas de Gestão de Produtos
     Route::get('products/create', CreateProduct::class)->name('admin.create-product');
-    Route::get('products', ListProducts::class)->name('admin.products.list');
-    Route::get('products/{product}/edit', EditProduct::class)->name('admin.edit-product');
+
+    // Rota da Lista (Corrigida: removido o ->layout que causava erro)
+    Route::get('products', ListProducts::class)->name('admin.products');
+
+    // Rota de Edição
+    Route::get('products/{product}/edit', EditProduct::class)->name('admin.products.edit');
 
 });

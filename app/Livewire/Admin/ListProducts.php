@@ -2,29 +2,36 @@
 
 namespace App\Livewire\Admin;
 
-use Livewire\Component;
 use App\Models\Product;
-use Livewire\Attributes\Layout; // 1. Importa isto
+use Livewire\Component;
+use Livewire\Attributes\Layout; // Importação necessária para o Layout
+use Illuminate\Support\Facades\Storage; // Importação necessária para o Storage
 
-#[Layout('layouts.app')] // 2. Define o layout aqui em cima
+#[Layout('layouts.app')] // Define o layout aqui e resolve o MissingLayoutException
 class ListProducts extends Component
 {
-    public function deleteProduct($id)
+    public function delete($id)
     {
-        $product = Product::find($id);
-        if ($product) {
-            $product->delete();
-            session()->flash('message', 'Produto eliminado com sucesso!');
+        $product = Product::findOrFail($id);
+
+        // Remove a imagem se existir
+        if ($product->image_path) {
+            Storage::disk('public')->delete($product->image_path);
         }
+
+        // Remove variantes antes de apagar o produto para evitar erros de integridade
+        $product->variants()->delete();
+
+        // Remove o produto
+        $product->delete();
+
+        session()->flash('message', 'Produto eliminado com sucesso!');
     }
 
     public function render()
     {
-    // Usa ->latest() para que o novo produto apareça sempre no topo
-    $products = \App\Models\Product::latest()->get();
-
-    return view('livewire.admin.list-products', [
-        'products' => $products
-    ]);
+        return view('livewire.admin.list-products', [
+            'products' => Product::latest()->get()
+        ]);
     }
 }
