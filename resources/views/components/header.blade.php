@@ -20,7 +20,11 @@
                         class="text-sm font-bold uppercase tracking-widest text-tactical-text hover:text-red-500 transition-colors cursor-pointer">
                     Sair
                 </button>
-                <a href="{{ route('dashboard') }}" class="text-rec-gold-600 hover:text-white transition-colors" title="Perfil">
+
+                {{-- Link dinâmico: Admin vai para admin.dashboard, Utilizador vai para dashboard --}}
+                <a href="{{ auth()->user()->role === 'admin' ? route('admin.dashboard') : route('dashboard') }}"
+                   class="text-rec-gold-600 hover:text-white transition-colors"
+                   title="Perfil">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                 </a>
             @endguest
@@ -33,7 +37,7 @@
         </button>
     </div>
 
-    {{-- Menu Mobile (Adicionado ID mobileMenu e classe hidden inicial) --}}
+    {{-- Menu Mobile --}}
     <div id="mobileMenu"
          class="hidden md:hidden bg-tactical-dark border-b border-tactical-surface p-6 space-y-4">
         <a href="#" class="block text-tactical-text hover:text-rec-gold-400">Arsenal</a>
@@ -47,7 +51,12 @@
                     class="block text-tactical-text hover:text-red-500 w-full text-left">
                 Sair
             </button>
-            <a href="{{ route('dashboard') }}" class="block text-rec-gold-600 font-bold">Perfil</a>
+
+            {{-- Link dinâmico Mobile --}}
+            <a href="{{ auth()->user()->role === 'admin' ? route('admin.dashboard') : route('dashboard') }}"
+               class="block text-rec-gold-600 font-bold">
+                Perfil
+            </a>
         @endguest
     </div>
 </header>

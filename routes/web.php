@@ -3,7 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Volt\Volt;
-use App\Livewire\Admin\CreateProduct;
+
+// Importação dos teus componentes Livewire
+use App\Livewire\Admin\Dashboard;      // Importação do Dashboard Admin
+use App\Livewire\Admin\CreateProduct;  // Importação do componente de criar produto
+use App\Livewire\Admin\ListProducts;   // Importação do componente de listar produtos
+use App\Livewire\Admin\EditProduct;    // Importação do novo componente de editar produtos
 
 // Página Inicial
 Route::view('/', 'welcome');
@@ -29,10 +34,11 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Dashboard do Admin
-    Route::view('dashboard', 'admin.dashboard')->name('admin.dashboard');
+    Route::get('dashboard', Dashboard::class)->name('admin.dashboard');
 
-    // Rota direta para o componente Livewire de criação de produtos
-    // Não precisa de rota 'post' extra pois o Livewire gere o formulário via wire:submit
-    Route::get('products', CreateProduct::class)->name('admin.products');
+    // Rotas de Gestão de Produtos
+    Route::get('products/create', CreateProduct::class)->name('admin.create-product');
+    Route::get('products', ListProducts::class)->name('admin.products.list');
+    Route::get('products/{product}/edit', EditProduct::class)->name('admin.edit-product');
 
 });

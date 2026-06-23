@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\ProductVariant;
 
 class Product extends Model
 {
@@ -10,11 +12,8 @@ class Product extends Model
         'name', 'slug', 'description', 'price', 'stock', 'image_path', 'is_active'
     ];
 
-    /**
-     * Define a relação: Um produto pode ter várias imagens associadas.
-     */
-    public function images()
+    public function variants(): HasMany
     {
-        return $this->hasMany(ProductImage::class);
+        return $this->hasMany('App\Models\ProductVariant');
     }
 }

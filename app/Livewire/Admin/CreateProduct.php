@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Str;
+use App\Models\Product;          // ADICIONADO: Import do modelo Product
+use App\Models\ProductVariant;   // ADICIONADO: Import do modelo ProductVariant
 
 #[Layout('layouts.app')]
 class CreateProduct extends Component
@@ -21,7 +23,7 @@ class CreateProduct extends Component
 
     public function addVariant()
     {
-        $this->variants[] = ['name' => '', 'stock' => 0, 'price' => 0];
+        $this->variants[] = ['name' => '', 'stock' => '', 'price' => ''];
     }
 
     public function removeVariant($index)
@@ -32,7 +34,6 @@ class CreateProduct extends Component
 
     public function save()
     {
-        // 1. Validação
         $this->validate([
             'name' => 'required|min:3',
             'price' => 'required|numeric|min:0',
@@ -42,34 +43,29 @@ class CreateProduct extends Component
             'variants.*.price' => 'required|numeric',
         ]);
 
-        // 2. Lógica de Gravação (Substitui com o teu Modelo)
-        // Exemplo:
-        /*
         $path = $this->cover_image ? $this->cover_image->store('products', 'public') : null;
 
+        // Agora o 'Product' será reconhecido sem erros
         $product = Product::create([
             'name' => $this->name,
             'slug' => $this->slug ?: Str::slug($this->name),
             'description' => $this->description,
             'price' => $this->price,
             'stock' => $this->stock,
-            'image' => $path,
+            'image_path' => $path,
+            'is_active' => true,
         ]);
 
         foreach ($this->variants as $variant) {
-            $product->variants()->create($variant);
+            $product->variants()->create([
+                'name' => $variant['name'],
+                'stock' => $variant['stock'],
+                'price' => $variant['price'],
+            ]);
         }
-        */
 
-        // 3. Feedback de sucesso
         session()->flash('message', 'Equipamento e variantes guardados com sucesso!');
-
-        $this->dispatch('scroll-to-top');
-
-        // 4. Reset do formulário
         $this->reset(['name', 'slug', 'description', 'price', 'stock', 'cover_image']);
-
-        // 5. Reiniciar as variantes para o estado inicial
         $this->variants = [];
         $this->addVariant();
     }
