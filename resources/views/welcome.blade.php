@@ -3,5 +3,6 @@
 
     <x-about />
 
-</x-app-layout>
+        <livewire:shop.catalog />
 
+</x-app-layout>

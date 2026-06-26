@@ -4,14 +4,20 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Volt\Volt;
 
-// Importação dos teus componentes Livewire
+// Importação dos componentes Admin
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\CreateProduct;
 use App\Livewire\Admin\ListProducts;
 use App\Livewire\Admin\EditProduct;
 
+// Importação dos componentes de Loja
+use App\Livewire\Shop\Catalog;
+
 // Página Inicial
 Route::view('/', 'welcome');
+
+// Rota da Loja (Pública)
+Route::get('/shop', Catalog::class)->name('shop');
 
 // Rotas de Autenticação
 Volt::route('login', 'pages.auth.login')->name('login');
@@ -39,7 +45,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Rotas de Gestão de Produtos
     Route::get('products/create', CreateProduct::class)->name('admin.create-product');
 
-    // Rota da Lista (Corrigida: removido o ->layout que causava erro)
+    // Rota da Lista
     Route::get('products', ListProducts::class)->name('admin.products');
 
     // Rota de Edição
