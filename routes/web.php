@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CartController; // <--- Importação adicionada
+use App\Http\Controllers\CartController;
 
 // Importação dos componentes Admin
 use App\Livewire\Admin\Dashboard;
@@ -24,8 +24,11 @@ Route::get('/shop', Catalog::class)->name('shop');
 // Rota de Detalhes do Produto
 Route::get('/produto/{product}', [ProductController::class, 'show'])->name('product.show');
 
-// NOVA ROTA: Adicionar ao Carrinho (Necessária para o formulário no show.blade.php)
+// ROTAS DO CARRINHO
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::patch('/cart/{id}', [CartController::class, 'update'])->name('cart.update'); // <--- A ROTA QUE FALTAVA
 
 // Rotas de Autenticação
 Volt::route('login', 'pages.auth.login')->name('login');
@@ -59,4 +62,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Rota de Edição
     Route::get('products/{product}/edit', EditProduct::class)->name('admin.products.edit');
 
+});
+
+// Rota para limpar o carrinho (útil para debug)
+Route::get('/limpar', function () {
+    session()->forget('cart');
+    return "Carrinho limpo com sucesso!";
 });

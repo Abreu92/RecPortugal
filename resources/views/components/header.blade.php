@@ -8,7 +8,7 @@
 
         {{-- Navegação Desktop --}}
         <nav class="hidden md:flex items-center space-x-6">
-            <a href="#arsenal" class="text-sm uppercase tracking-widest text-tactical-text hover:text-rec-gold-400 transition-colors">Arsenal</a>
+            <a href="{{ route('cart.index') }}" class="text-sm uppercase tracking-widest text-tactical-text hover:text-rec-gold-400 transition-colors">Carrinho</a>
 
             @guest
                 <a href="{{ route('login') }}" class="text-sm font-bold uppercase tracking-widest text-tactical-text hover:text-rec-gold-400 transition-colors">Entrar</a>
@@ -40,7 +40,7 @@
     {{-- Menu Mobile --}}
     <div id="mobileMenu"
          class="hidden md:hidden bg-tactical-dark border-b border-tactical-surface p-6 space-y-4">
-        <a href="#" class="block text-tactical-text hover:text-rec-gold-400">Arsenal</a>
+        <a href="{{ route('cart.index') }}" class="block text-tactical-text hover:text-rec-gold-400">Carrinho</a>
         @guest
             <a href="{{ route('login') }}" class="block text-rec-gold-600 font-bold">Entrar</a>
             <a href="{{ route('register') }}" class="block text-tactical-text">Registar</a>
