@@ -24,7 +24,7 @@
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="/arsenal" class="w-full sm:w-auto px-10 py-4 bg-rec-gold-600 text-black font-bold uppercase tracking-widest hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(202,138,4,0.4)]">
+            <a href="#arsenal" class="w-full sm:w-auto px-10 py-4 bg-rec-gold-600 text-black font-bold uppercase tracking-widest hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(202,138,4,0.4)]">
                 Ver Arsenal
             </a>
 

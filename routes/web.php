@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController; // <--- Importação adicionada
 
 // Importação dos componentes Admin
 use App\Livewire\Admin\Dashboard;
@@ -18,6 +20,12 @@ Route::view('/', 'welcome');
 
 // Rota da Loja (Pública)
 Route::get('/shop', Catalog::class)->name('shop');
+
+// Rota de Detalhes do Produto
+Route::get('/produto/{product}', [ProductController::class, 'show'])->name('product.show');
+
+// NOVA ROTA: Adicionar ao Carrinho (Necessária para o formulário no show.blade.php)
+Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
 
 // Rotas de Autenticação
 Volt::route('login', 'pages.auth.login')->name('login');

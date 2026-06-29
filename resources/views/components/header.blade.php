@@ -8,7 +8,7 @@
 
         {{-- Navegação Desktop --}}
         <nav class="hidden md:flex items-center space-x-6">
-            <a href="#" class="text-sm uppercase tracking-widest text-tactical-text hover:text-rec-gold-400 transition-colors">Arsenal</a>
+            <a href="#arsenal" class="text-sm uppercase tracking-widest text-tactical-text hover:text-rec-gold-400 transition-colors">Arsenal</a>
 
             @guest
                 <a href="{{ route('login') }}" class="text-sm font-bold uppercase tracking-widest text-tactical-text hover:text-rec-gold-400 transition-colors">Entrar</a>

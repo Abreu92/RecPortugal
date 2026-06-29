@@ -1,4 +1,4 @@
-<section class="bg-zinc-900 py-16 border-t border-b border-white/5">
+<section id="arsenal" class="bg-zinc-900 py-16 border-t border-b border-white/5">
     <div class="max-w-7xl mx-auto px-4">
         <div class="mb-12 border-l-4 border-rec-gold-600 pl-6">
             <h2 class="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter">
@@ -24,9 +24,10 @@
                         <h3 class="text-xs md:text-lg font-bold text-white mb-1 uppercase tracking-tight truncate">{{ $product->name }}</h3>
                         <p class="text-rec-gold-600 font-mono text-sm md:text-2xl font-black mb-4">{{ number_format($product->price, 2) }} €</p>
 
-                        <button class="w-full py-2 md:py-3 bg-zinc-900 border border-rec-gold-600/50 text-white font-bold uppercase tracking-widest text-[10px] md:text-sm hover:bg-rec-gold-600 hover:text-black transition duration-300">
+                        <a href="{{ route('product.show', $product->id) }}"
+                           class="block text-center w-full py-2 md:py-3 bg-zinc-900 border border-rec-gold-600/50 text-white font-bold uppercase tracking-widest text-[10px] md:text-sm hover:bg-rec-gold-600 hover:text-black transition duration-300">
                             Ver Detalhes
-                        </button>
+                        </a>
                     </div>
                 </div>
             @empty
