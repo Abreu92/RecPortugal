@@ -6,7 +6,9 @@
                 EDITAR EQUIPAMENTO: {{ $name }}
             </h1>
 
+            {{-- Formulário --}}
             <form wire:submit="update" class="space-y-6">
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-xs font-bold text-gray-400 uppercase mb-2">NOME DO ARTIGO</label>
@@ -44,17 +46,17 @@
 
                     <div class="space-y-4">
                         @foreach ($variants as $index => $variant)
-                            <div class="flex flex-col md:grid md:grid-cols-12 gap-3 pb-4 border-b border-gray-800 relative">
+                            <div wire:key="variant-{{ $index }}" class="flex flex-col md:grid md:grid-cols-12 gap-3 pb-4 border-b border-gray-800 relative">
                                 <div class="md:col-span-5">
-                                    <input type="text" wire:model="variants.{{$index}}.name" class="w-full bg-black border border-gray-700 p-2 rounded focus:border-yellow-600 text-sm">
+                                    <input type="text" wire:model="variants.{{$index}}.name" placeholder="Nome da Variante" class="w-full bg-black border border-gray-700 p-2 rounded focus:border-yellow-600 text-sm">
                                 </div>
                                 <div class="md:col-span-3">
-                                    <input type="number" wire:model="variants.{{$index}}.stock" class="w-full bg-black border border-gray-700 p-2 rounded focus:border-yellow-600 text-sm">
+                                    <input type="number" wire:model="variants.{{$index}}.stock" placeholder="Stock" class="w-full bg-black border border-gray-700 p-2 rounded focus:border-yellow-600 text-sm">
                                 </div>
                                 <div class="md:col-span-3">
-                                    <input type="number" step="0.01" wire:model="variants.{{$index}}.price" class="w-full bg-black border border-gray-700 p-2 rounded focus:border-yellow-600 text-sm">
+                                    <input type="number" step="0.01" wire:model="variants.{{$index}}.price" placeholder="Preço" class="w-full bg-black border border-gray-700 p-2 rounded focus:border-yellow-600 text-sm">
                                 </div>
-                                <button type="button" wire:click="removeVariant({{$index}})" class="text-red-500 font-bold">X</button>
+                                <button type="button" wire:click="removeVariant({{$index}})" class="text-red-500 font-bold hover:text-red-400">X</button>
                             </div>
                         @endforeach
                     </div>

@@ -14,6 +14,9 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    {{-- SweetAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         /* Scrollbar estilo "Command Center" */
         ::-webkit-scrollbar { width: 8px; }
@@ -25,30 +28,10 @@
 </head>
 <body class="h-full bg-tactical-dark text-tactical-text font-sans antialiased selection:bg-rec-gold-600 selection:text-black">
 
-    {{-- Modal de Logout (Vanilla JS - À prova de falhas) --}}
-    <div id="logoutModal" class="hidden fixed inset-0 z-[9999] items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-        <div class="bg-tactical-dark border border-tactical-surface p-8 rounded-lg shadow-2xl max-w-sm w-full space-y-6">
-            <h2 class="text-xl font-bold text-white uppercase tracking-widest">Terminar Sessão</h2>
-            <p class="text-tactical-text">Tem a certeza que pretende terminar a sessão atual?</p>
-
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <div class="flex gap-4">
-                    {{-- Botão Cancelar --}}
-                    <button type="button"
-                            onclick="document.getElementById('logoutModal').classList.add('hidden')"
-                            class="flex-1 py-2 px-4 border border-tactical-surface text-white hover:bg-tactical-surface transition">
-                        Cancelar
-                    </button>
-                    {{-- Botão Sair --}}
-                    <button type="submit"
-                            class="flex-1 py-2 px-4 bg-red-600 hover:bg-red-700 text-white font-bold transition">
-                        Sim, Sair
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+    {{-- Formulário de Logout (Oculto) --}}
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+        @csrf
+    </form>
 
     {{-- Mensagem de Sucesso (Toast Automático) --}}
     @if (session()->has('success'))
@@ -80,5 +63,35 @@
 
     <x-footer />
 
+    {{-- Script Global de Confirmação de Logout --}}
+    <script>
+        function confirmLogout() {
+    Swal.fire({
+        title: 'Terminar sessão?',
+        text: "Estás prestes a sair da tua conta.",
+        icon: 'question',
+        showCancelButton: true,
+        // --- ADICIONA ESTAS LINHAS ---
+        width: '90%',              // Ocupa 90% do ecrã no telemóvel
+        padding: '1.5em',          // Espaçamento interno mais confortável
+        // -----------------------------
+        confirmButtonColor: '#ca8a04',
+        cancelButtonColor: '#3f3f46',
+        confirmButtonText: 'Sim, sair',
+        cancelButtonText: 'Cancelar',
+        background: '#09090b',
+        color: '#ffffff',
+        iconColor: '#ca8a04',
+        // Opcional: Garante que não fica demasiado grande em ecrãs enormes
+        customClass: {
+            popup: 'max-w-md' // Limita a largura máxima para não ficar esticado no PC
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('logout-form').submit();
+        }
+    });
+}
+    </script>
 </body>
 </html>

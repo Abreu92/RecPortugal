@@ -4,12 +4,15 @@ namespace App\Livewire\Admin;
 
 use App\Models\Product;
 use Livewire\Component;
-use Livewire\Attributes\Layout; // Importação necessária para o Layout
-use Illuminate\Support\Facades\Storage; // Importação necessária para o Storage
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\On; // Importação necessária
+use Illuminate\Support\Facades\Storage;
 
-#[Layout('layouts.app')] // Define o layout aqui e resolve o MissingLayoutException
+#[Layout('layouts.app')]
 class ListProducts extends Component
 {
+    // Ouve o evento disparado pelo botão no Blade
+    #[On('delete-product')]
     public function delete($id)
     {
         $product = Product::findOrFail($id);
@@ -19,7 +22,7 @@ class ListProducts extends Component
             Storage::disk('public')->delete($product->image_path);
         }
 
-        // Remove variantes antes de apagar o produto para evitar erros de integridade
+        // Remove variantes antes de apagar o produto
         $product->variants()->delete();
 
         // Remove o produto
