@@ -33,7 +33,8 @@ class CartController extends Controller
                 'price' => $product->price,
                 'quantity' => 1,
                 'variant_id' => $variantId,
-                'image' => $product->image
+                // Garantimos que a imagem é guardada, ou nulo se não existir
+                'image' => $product->image_path
             ];
         }
 
@@ -48,11 +49,9 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
 
         if (isset($cart[$id])) {
-            // Se o utilizador colocar 0 ou menos, removemos o item
             if ($request->quantity <= 0) {
                 unset($cart[$id]);
             } else {
-                // Caso contrário, atualizamos a quantidade
                 $cart[$id]['quantity'] = $request->quantity;
             }
             session()->put('cart', $cart);
@@ -64,7 +63,7 @@ class CartController extends Controller
     // REMOVER ITEM
     public function remove($id)
     {
-        $cart = session()->get('cart');
+        $cart = session()->get('cart', []);
         if (isset($cart[$id])) {
             unset($cart[$id]);
             session()->put('cart', $cart);
