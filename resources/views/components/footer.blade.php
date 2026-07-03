@@ -26,11 +26,12 @@
         </div>
 
         <div class="space-y-4">
-            <h4 class="text-tactical-text font-semibold uppercase tracking-wider text-sm">Arsenal</h4>
+            <h4 class="text-tactical-text font-semibold uppercase tracking-wider text-sm">Informações uteis</h4>
             <ul class="space-y-2 text-sm text-tactical-muted">
-                <li><a href="#" class="hover:text-rec-gold-400 transition-colors">Catálogo Completo</a></li>
+                <li><a href="{{ route('faq') }}" class="hover:text-rec-gold-400 transition-colors">FAQ</a></li>
+                <li><a href="{{ route('politicas') }}" class="hover:text-rec-gold-400 transition-colors">Políticas e Termos</a></li>
                 <li><a href="#" class="hover:text-rec-gold-400 transition-colors">Manutenção e Apoio</a></li>
-                <li><a href="#" class="hover:text-rec-gold-400 transition-colors">Protocolos de Segurança</a></li>
+                <li><a href="{{ route('protocolos') }}" class="hover:text-rec-gold-400 transition-colors">Protocolos de Segurança</a></li>
             </ul>
         </div>
 

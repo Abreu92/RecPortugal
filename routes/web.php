@@ -69,3 +69,15 @@ Route::get('/limpar', function () {
     session()->forget('cart');
     return "Carrinho limpo com sucesso!";
 });
+
+Route::get('/faq', function () {
+    return view('faq');
+})->name('faq');
+
+Route::get('/politicas', function () {
+    return view('politicas');
+})->name('politicas');
+
+Route::get('/protocolos', function () {
+    return view('protocolos');
+})->name('protocolos');
