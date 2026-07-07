@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\Admin\OrderController;
 
 // Importação dos componentes Admin
 use App\Livewire\Admin\Dashboard;
@@ -29,7 +30,7 @@ Route::get('/produto/{product}', [ProductController::class, 'show'])->name('prod
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
 Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remove');
-Route::patch('/cart/{id}', [CartController::class, 'update'])->name('cart.update'); // <--- A ROTA QUE FALTAVA
+Route::patch('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
 
 // Rotas de Autenticação
 Volt::route('login', 'pages.auth.login')->name('login');
@@ -46,22 +47,25 @@ Route::post('logout', function () {
 // Rotas de Utilizador Comum
 Route::middleware('auth')->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
+
+    // Rota adicionada para o cliente ver as suas encomendas
+    Route::get('/minhas-encomendas', [OrderController::class, 'myOrders'])->name('orders.index');
 });
 
-// Rotas de Admin
+// Rotas de Admin (Protegidas)
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Dashboard do Admin
     Route::get('dashboard', Dashboard::class)->name('admin.dashboard');
 
-    // Rotas de Gestão de Produtos
+    // Gestão de Produtos
     Route::get('products/create', CreateProduct::class)->name('admin.create-product');
-
-    // Rota da Lista
     Route::get('products', ListProducts::class)->name('admin.products');
-
-    // Rota de Edição
     Route::get('products/{product}/edit', EditProduct::class)->name('admin.products.edit');
+
+    // Gestão de Encomendas
+    Route::get('orders', [OrderController::class, 'index'])->name('admin.orders.index');
+    Route::post('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('admin.orders.update-status');
 
 });
 
@@ -71,17 +75,11 @@ Route::get('/limpar', function () {
     return "Carrinho limpo com sucesso!";
 });
 
-Route::get('/faq', function () {
-    return view('faq');
-})->name('faq');
+// Informações estáticas
+Route::get('/faq', function () { return view('faq'); })->name('faq');
+Route::get('/politicas', function () { return view('politicas'); })->name('politicas');
+Route::get('/protocolos', function () { return view('protocolos'); })->name('protocolos');
 
-Route::get('/politicas', function () {
-    return view('politicas');
-})->name('politicas');
-
-Route::get('/protocolos', function () {
-    return view('protocolos');
-})->name('protocolos');
-
+// Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
