@@ -20,11 +20,12 @@ new #[Layout('layouts.app')] class extends Component
 
         Session::regenerate();
 
-        // LÓGICA DE REDIRECIONAMENTO PERSONALIZADA
+        // LÓGICA DE REDIRECIONAMENTO
         if (auth()->user()->role === 'admin') {
             $this->redirect('/admin/dashboard', navigate: true);
         } else {
-            $this->redirect('/dashboard', navigate: true);
+            // Alterado para redirecionar para o carrinho para utilizadores comuns
+            $this->redirect(route('cart.index'), navigate: true);
         }
     }
 }; ?>
@@ -69,6 +70,23 @@ new #[Layout('layouts.app')] class extends Component
             </button>
         </form>
 
+        {{-- Divisor --}}
+        <div class="relative my-6">
+            <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-slate-700"></div>
+            </div>
+            <div class="relative flex justify-center text-xs uppercase text-slate-500">
+                <span class="bg-tactical-surface px-2">ou</span>
+            </div>
+        </div>
+
+        {{-- Botão Google --}}
+        <a href="{{ route('google.login') }}"
+           class="w-full py-4 bg-white text-black font-black uppercase tracking-widest hover:bg-slate-200 transition-all duration-300 flex items-center justify-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" class="w-5 h-5 mr-3" alt="Google">
+            Login com Google
+        </a>
+
         <p class="mt-6 text-center text-slate-500 text-sm">
             Sem conta? <a href="{{ route('register') }}" class="text-rec-gold-600 hover:underline">Regista-te já</a>
         </p>
@@ -82,10 +100,10 @@ new #[Layout('layouts.app')] class extends Component
 
         if (input.type === 'password') {
             input.type = 'text';
-            icon.classList.add('text-rec-gold-600'); // Fica dourado quando visível
+            icon.classList.add('text-rec-gold-600');
         } else {
             input.type = 'password';
-            icon.classList.remove('text-rec-gold-600'); // Volta à cor original
+            icon.classList.remove('text-rec-gold-600');
         }
     }
 </script>

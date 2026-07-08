@@ -7,6 +7,7 @@ use Livewire\Volt\Volt;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\GoogleAuthController;
 
 // Importação dos componentes Admin
 use App\Livewire\Admin\Dashboard;
@@ -36,6 +37,10 @@ Route::patch('/cart/{id}', [CartController::class, 'update'])->name('cart.update
 Volt::route('login', 'pages.auth.login')->name('login');
 Volt::route('register', 'pages.auth.register')->name('register');
 
+// Rotas de Autenticação (Google)
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+
 // Logout
 Route::post('logout', function () {
     Auth::logout();
@@ -50,6 +55,10 @@ Route::middleware('auth')->group(function () {
 
     // Rota adicionada para o cliente ver as suas encomendas
     Route::get('/minhas-encomendas', [OrderController::class, 'myOrders'])->name('orders.index');
+
+    // Checkout movido para aqui para exigir autenticação obrigatória
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 });
 
 // Rotas de Admin (Protegidas)
@@ -79,7 +88,3 @@ Route::get('/limpar', function () {
 Route::get('/faq', function () { return view('faq'); })->name('faq');
 Route::get('/politicas', function () { return view('politicas'); })->name('politicas');
 Route::get('/protocolos', function () { return view('protocolos'); })->name('protocolos');
-
-// Checkout
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');

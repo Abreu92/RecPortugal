@@ -2,6 +2,12 @@
     <div class="py-12 bg-black min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
+            <div class="mb-4">
+                <a href="{{ url('/') }}" class="inline-flex items-center text-gray-400 hover:text-yellow-600 transition duration-300">
+                    <span class="mr-2">&larr;</span> Voltar à página inicial
+                </a>
+            </div>
+
             <div class="bg-gray-900 border border-gray-800 p-8 rounded-2xl shadow-xl">
                 <h1 class="text-3xl font-bold text-white">Olá novamente! 👋</h1>
                 <p class="text-gray-400 mt-2">Bem-vindo à tua área pessoal. Aqui podes consultar as tuas compras.</p>
@@ -15,12 +21,6 @@
                     <h2 class="text-lg font-bold text-white group-hover:text-yellow-500 transition-colors">As Minhas Encomendas</h2>
                     <p class="text-sm text-gray-400 mt-1">Acompanha o estado das tuas compras.</p>
                 </a>
-
-                <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl opacity-50 cursor-not-allowed">
-                    <div class="text-gray-600 mb-4 text-3xl">⚙️</div>
-                    <h2 class="text-lg font-bold text-gray-500">Definições</h2>
-                    <p class="text-sm text-gray-500 mt-1">Brevemente disponível.</p>
-                </div>
 
             </div>
         </div>
