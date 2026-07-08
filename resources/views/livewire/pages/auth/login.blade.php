@@ -64,6 +64,13 @@ new #[Layout('layouts.app')] class extends Component
                 @error('form.password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
 
+            {{-- Abaixo do campo da password --}}
+            <div class="flex justify-end mt-2">
+                <a href="{{ route('password.request') }}" class="text-xs text-slate-500 hover:text-rec-gold-600 transition-colors uppercase font-bold tracking-widest">
+                    Esqueceste a password?
+                </a>
+            </div>
+
             <button type="submit"
                     class="w-full py-4 bg-rec-gold-600 text-black font-black uppercase tracking-widest hover:bg-white transition-all duration-300">
                 Aceder

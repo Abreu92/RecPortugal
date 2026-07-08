@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\GoogleAuthController;
+use Illuminate\Support\Facades\Password;
 
 // Importação dos componentes Admin
 use App\Livewire\Admin\Dashboard;
@@ -88,3 +89,8 @@ Route::get('/limpar', function () {
 Route::get('/faq', function () { return view('faq'); })->name('faq');
 Route::get('/politicas', function () { return view('politicas'); })->name('politicas');
 Route::get('/protocolos', function () { return view('protocolos'); })->name('protocolos');
+
+// Rota para mostrar o formulário
+Volt::route('forgot-password', 'pages.auth.forgot-password')->name('password.request');
+// Rota para mostrar o formulário de "Nova Password"
+Volt::route('reset-password/{token}', 'pages.auth.password-reset')->name('password.reset');
