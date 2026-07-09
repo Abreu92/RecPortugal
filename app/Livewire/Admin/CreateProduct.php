@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use App\Models\Product;          // ADICIONADO: Import do modelo Product
 use App\Models\ProductVariant;   // ADICIONADO: Import do modelo ProductVariant
 
-#[Layout('layouts.app')]
+#[Layout('components.layouts.app')]
 class CreateProduct extends Component
 {
     use WithFileUploads;

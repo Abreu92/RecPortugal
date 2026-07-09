@@ -8,7 +8,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\On; // Importação necessária
 use Illuminate\Support\Facades\Storage;
 
-#[Layout('layouts.app')]
+#[Layout('components.layouts.app')]
 class ListProducts extends Component
 {
     // Ouve o evento disparado pelo botão no Blade

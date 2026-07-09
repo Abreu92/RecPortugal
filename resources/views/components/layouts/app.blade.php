@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="icon" type="images/png" href="{{ asset('images/iconSite.png') }}">
+
     <title>REC. PORTUGAL | TACTICAL GEAR</title>
 
     {{-- Google Fonts --}}

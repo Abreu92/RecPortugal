@@ -8,7 +8,7 @@ use Livewire\WithFileUploads;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Storage;
 
-#[Layout('layouts.app')]
+#[Layout('components.layouts.app')]
 class EditProduct extends Component
 {
     use WithFileUploads;

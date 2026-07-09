@@ -6,7 +6,7 @@ use App\Models\Product;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 
-#[Layout('layouts.app')] // Usamos o mesmo layout do admin
+#[Layout('components.layouts.app')] // Usamos o mesmo layout do admin
 class Catalog extends Component
 {
     public function render()
