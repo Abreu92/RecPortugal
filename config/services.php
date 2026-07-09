@@ -41,4 +41,9 @@ return [
     'redirect' => 'http://localhost:8000/auth/google/callback',
     ],
 
+    // config/services.php
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+    ],
 ];

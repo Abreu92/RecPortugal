@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.app')] class extends Component
+// MUDANÇA 1: Caminho do Layout atualizado para o novo local
+new #[Layout('components.layouts.app')] class extends Component
 {
     public LoginForm $form;
 
@@ -24,7 +25,6 @@ new #[Layout('layouts.app')] class extends Component
         if (auth()->user()->role === 'admin') {
             $this->redirect('/admin/dashboard', navigate: true);
         } else {
-            // Alterado para redirecionar para o carrinho para utilizadores comuns
             $this->redirect(route('cart.index'), navigate: true);
         }
     }
@@ -64,7 +64,6 @@ new #[Layout('layouts.app')] class extends Component
                 @error('form.password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
 
-            {{-- Abaixo do campo da password --}}
             <div class="flex justify-end mt-2">
                 <a href="{{ route('password.request') }}" class="text-xs text-slate-500 hover:text-rec-gold-600 transition-colors uppercase font-bold tracking-widest">
                     Esqueceste a password?
@@ -77,7 +76,6 @@ new #[Layout('layouts.app')] class extends Component
             </button>
         </form>
 
-        {{-- Divisor --}}
         <div class="relative my-6">
             <div class="absolute inset-0 flex items-center">
                 <div class="w-full border-t border-slate-700"></div>
@@ -87,7 +85,6 @@ new #[Layout('layouts.app')] class extends Component
             </div>
         </div>
 
-        {{-- Botão Google --}}
         <a href="{{ route('google.login') }}"
            class="w-full py-4 bg-white text-black font-black uppercase tracking-widest hover:bg-slate-200 transition-all duration-300 flex items-center justify-center">
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" class="w-5 h-5 mr-3" alt="Google">
@@ -100,6 +97,8 @@ new #[Layout('layouts.app')] class extends Component
     </div>
 </div>
 
+{{-- MUDANÇA 2: O script agora é injetado no final do layout via @push --}}
+@push('scripts')
 <script>
     function togglePassword() {
         const input = document.getElementById('passwordInput');
@@ -114,3 +113,4 @@ new #[Layout('layouts.app')] class extends Component
         }
     }
 </script>
+@endpush

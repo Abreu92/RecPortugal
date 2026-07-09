@@ -6,12 +6,13 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
 
 class CheckoutController extends Controller
 {
     public function index()
     {
-        // Verifica se o carrinho existe e não está vazio
         if (!session()->has('cart') || empty(session('cart'))) {
             return redirect()->route('cart.index')->with('error', 'O seu carrinho está vazio.');
         }
@@ -21,7 +22,6 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validação dos dados
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
@@ -31,7 +31,6 @@ class CheckoutController extends Controller
             'postal_code' => ['required', 'regex:/^[0-9]{4}-[0-9]{3}$/'],
         ]);
 
-        // 2. Segurança: Verifica se o carrinho ainda existe na sessão
         $cart = session('cart');
         if (!$cart || count($cart) === 0) {
             return redirect()->route('cart.index')->with('error', 'O seu carrinho está vazio.');
@@ -40,9 +39,8 @@ class CheckoutController extends Controller
         $total = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
 
         try {
-            // 3. Transação de Base de Dados
-            DB::transaction(function () use ($request, $cart, $total) {
-                $order = Order::create([
+            $order = DB::transaction(function () use ($request, $cart, $total) {
+                $newOrder = Order::create([
                     'name' => $request->name,
                     'email' => $request->email,
                     'phone' => $request->phone,
@@ -55,24 +53,52 @@ class CheckoutController extends Controller
 
                 foreach ($cart as $id => $details) {
                     OrderItem::create([
-                        'order_id' => $order->id,
-                        // Removemos o explode se o ID já for tratado,
-                        // mantemos conforme o teu original caso o ID na sessão contenha o variant_id
+                        'order_id' => $newOrder->id,
                         'product_id' => explode('_', $id)[0],
                         'variant_id' => $details['variant_id'] ?? null,
                         'quantity' => $details['quantity'],
                         'price' => $details['price'],
                     ]);
                 }
+                return $newOrder;
             });
 
-            // 4. Limpeza e Redirecionamento
             session()->forget('cart');
-            return redirect()->route('welcome')->with('success', 'Compra realizada com sucesso!');
+
+            return redirect()->route('checkout.payment', $order->id);
 
         } catch (\Exception $e) {
-            // Se algo falhar na base de dados, devolve o utilizador com uma mensagem de erro
-            return back()->with('error', 'Ocorreu um erro ao processar a encomenda. Por favor, tente novamente.');
+            return back()->with('error', 'Erro ao criar encomenda: ' . $e->getMessage());
         }
+    }
+
+    public function payment($id)
+    {
+        try {
+            $order = Order::findOrFail($id);
+
+            Stripe::setApiKey(config('services.stripe.secret'));
+
+            $paymentIntent = PaymentIntent::create([
+                'amount' => (int)($order->total_price * 100),
+                'currency' => 'eur',
+                'automatic_payment_methods' => ['enabled' => true],
+                'metadata' => ['order_id' => $order->id],
+            ]);
+
+            return view('livewire.shop.payment', [
+                'order' => $order,
+                'clientSecret' => $paymentIntent->client_secret
+            ]);
+
+        } catch (\Exception $e) {
+            dd("Erro ao carregar a página de pagamento: " . $e->getMessage());
+        }
+    }
+
+    // ADICIONADO: Método para a página de sucesso
+    public function success()
+    {
+        return view('livewire.shop.success');
     }
 }

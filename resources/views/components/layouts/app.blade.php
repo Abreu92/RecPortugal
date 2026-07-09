@@ -18,7 +18,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-        /* Scrollbar estilo "Command Center" */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
@@ -28,28 +27,17 @@
 </head>
 <body class="h-full bg-tactical-dark text-tactical-text font-sans antialiased selection:bg-rec-gold-600 selection:text-black">
 
-    {{-- Formulário de Logout (Oculto) --}}
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
         @csrf
     </form>
 
-    {{-- Mensagem de Sucesso (Toast Automático) --}}
+    {{-- Mensagem de Sucesso (Toast) --}}
     @if (session()->has('success'))
         <div x-data="{ show: true }"
              x-init="setTimeout(() => show = false, 3000)"
              x-show="show"
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 translate-y-2"
-             x-transition:enter-end="opacity-100 translate-y-0"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100"
-             x-transition:leave-end="opacity-0"
              class="fixed top-20 right-6 z-[9999]">
-
             <div class="bg-tactical-surface border-l-4 border-rec-gold-600 text-white p-4 shadow-2xl flex items-center gap-3">
-                <svg class="w-6 h-6 text-rec-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
                 <p class="font-bold uppercase tracking-widest text-sm">{{ session('success') }}</p>
             </div>
         </div>
@@ -63,35 +51,24 @@
 
     <x-footer />
 
-    {{-- Script Global de Confirmação de Logout --}}
+    {{-- Script de Logout --}}
     <script>
         function confirmLogout() {
-    Swal.fire({
-        title: 'Terminar sessão?',
-        text: "Estás prestes a sair da tua conta.",
-        icon: 'question',
-        showCancelButton: true,
-        // --- ADICIONA ESTAS LINHAS ---
-        width: '90%',              // Ocupa 90% do ecrã no telemóvel
-        padding: '1.5em',          // Espaçamento interno mais confortável
-        // -----------------------------
-        confirmButtonColor: '#ca8a04',
-        cancelButtonColor: '#3f3f46',
-        confirmButtonText: 'Sim, sair',
-        cancelButtonText: 'Cancelar',
-        background: '#09090b',
-        color: '#ffffff',
-        iconColor: '#ca8a04',
-        // Opcional: Garante que não fica demasiado grande em ecrãs enormes
-        customClass: {
-            popup: 'max-w-md' // Limita a largura máxima para não ficar esticado no PC
+            Swal.fire({
+                title: 'Terminar sessão?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#ca8a04',
+                background: '#09090b',
+                color: '#ffffff',
+                customClass: { popup: 'max-w-md' }
+            }).then((result) => {
+                if (result.isConfirmed) { document.getElementById('logout-form').submit(); }
+            });
         }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.getElementById('logout-form').submit();
-        }
-    });
-}
     </script>
+
+    {{-- Ponto de Injeção de Scripts (Crucial para o Stripe) --}}
+    @stack('scripts')
 </body>
 </html>

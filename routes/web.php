@@ -2,13 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CheckoutController;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Volt\Volt;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\GoogleAuthController;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Volt\Volt;
 
 // Importação dos componentes Admin
 use App\Livewire\Admin\Dashboard;
@@ -37,6 +36,8 @@ Route::patch('/cart/{id}', [CartController::class, 'update'])->name('cart.update
 // Rotas de Autenticação
 Volt::route('login', 'pages.auth.login')->name('login');
 Volt::route('register', 'pages.auth.register')->name('register');
+Volt::route('forgot-password', 'pages.auth.forgot-password')->name('password.request');
+Volt::route('reset-password/{token}', 'pages.auth.password-reset')->name('password.reset');
 
 // Rotas de Autenticação (Google)
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
@@ -50,47 +51,33 @@ Route::post('logout', function () {
     return redirect('/');
 })->name('logout');
 
-// Rotas de Utilizador Comum
+// Rotas de Utilizador Comum (Protegidas)
 Route::middleware('auth')->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
-    // Rota adicionada para o cliente ver as suas encomendas
+    // Minhas Encomendas
     Route::get('/minhas-encomendas', [OrderController::class, 'myOrders'])->name('orders.index');
 
-    // Checkout movido para aqui para exigir autenticação obrigatória
+    // Checkout e Pagamento (Protegidos)
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/checkout/payment/{order}', [CheckoutController::class, 'payment'])->name('checkout.payment');
 });
 
 // Rotas de Admin (Protegidas)
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-
-    // Dashboard do Admin
     Route::get('dashboard', Dashboard::class)->name('admin.dashboard');
-
-    // Gestão de Produtos
     Route::get('products/create', CreateProduct::class)->name('admin.create-product');
     Route::get('products', ListProducts::class)->name('admin.products');
     Route::get('products/{product}/edit', EditProduct::class)->name('admin.products.edit');
-
-    // Gestão de Encomendas
     Route::get('orders', [OrderController::class, 'index'])->name('admin.orders.index');
     Route::post('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('admin.orders.update-status');
-
 });
 
-// Rota para limpar o carrinho (útil para debug)
-Route::get('/limpar', function () {
-    session()->forget('cart');
-    return "Carrinho limpo com sucesso!";
-});
-
-// Informações estáticas
+// Outros
+Route::get('/limpar', function () { session()->forget('cart'); return "Carrinho limpo!"; });
 Route::get('/faq', function () { return view('faq'); })->name('faq');
 Route::get('/politicas', function () { return view('politicas'); })->name('politicas');
 Route::get('/protocolos', function () { return view('protocolos'); })->name('protocolos');
-
-// Rota para mostrar o formulário
-Volt::route('forgot-password', 'pages.auth.forgot-password')->name('password.request');
-// Rota para mostrar o formulário de "Nova Password"
-Volt::route('reset-password/{token}', 'pages.auth.password-reset')->name('password.reset');
+// Adiciona isto ao teu routes/web.php
+Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');

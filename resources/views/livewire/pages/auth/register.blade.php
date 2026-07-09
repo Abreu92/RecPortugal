@@ -9,7 +9,8 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Computed;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.app')] class extends Component
+// MUDANÇA: Caminho do Layout atualizado para o novo local
+new #[Layout('components.layouts.app')] class extends Component
 {
     public string $name = '';
     public string $email = '';
